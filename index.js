@@ -29,7 +29,17 @@ async function generateAndSaveQRCode() {
 }
 
 // Express route to generate QR code
-app.get('/api/generate-qr', async(req, res) => {
+app.get('/', async(req, res) => {
+    try {
+        const response = "To use the API for generating QR Code, please visit ./generate-qr"
+        res.json({ response });
+    } catch (err) {
+        res.status(500).send('Error generating QR code');
+    }
+});
+
+// Express route to generate QR code
+app.get('/generate-qr', async(req, res) => {
     try {
         const { qrCodeDataUrl, randomText } = await generateAndSaveQRCode();
         res.json({ qrCodeDataUrl, randomText });
